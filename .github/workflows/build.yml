@@ -46,7 +46,7 @@ jobs:
       #  run: |
       #    npm install
       - name: Install
-        run: docker-compose run -T --rm node npm install
+        run: docker-compose run -T --rm node npm --unsafe-perm install
       - name: Start
         run: docker-compose up -d ${SELENIUM_BROWSER}
       - name: Build
