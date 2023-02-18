@@ -1,5 +1,5 @@
 {
-  "name": "@json-editor/json-editor",
+  "name": "@snmishra/json-editor",
   "title": "JSONEditor",
   "description": "JSON Schema based editor",
   "version": "2.9.1",
