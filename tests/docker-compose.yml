@@ -1,9 +1,11 @@
 version: '3'
 services:
   node:
-    image: node:16-slim
+    build:
+      context: ..
+      dockerfile: tests/Dockerfile
     volumes:
-      - ../:/repo:delegated
+      - .:/repo:delegated
     working_dir: /repo/tests/codeceptjs
     environment:
       - PUPPETEER_SKIP_DOWNLOAD=1
