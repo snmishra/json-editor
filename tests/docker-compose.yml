@@ -1,13 +1,11 @@
 version: '3'
 services:
   node:
-    image: node:16-slim
+    build: .
     volumes:
       - ../:/repo:delegated
     working_dir: /repo/tests/codeceptjs
-    environment:
-      - PUPPETEER_SKIP_DOWNLOAD=1
-    command: env PATH="/repo/node_modules/.bin:$PATH" npm run serve-test
+    command: npm run serve-test
     ports:
       - '9100:9001'
     expose:
