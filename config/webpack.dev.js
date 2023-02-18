@@ -5,7 +5,6 @@ const helpers = require('./helpers')
 
 module.exports = merge(commonConfig, {
   mode: 'development',
-  devtool: 'eval-cheap-module-source-map',
   output: {
     path: helpers.root('dist/dev'),
     publicPath: '/dist/',

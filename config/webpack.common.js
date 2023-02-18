@@ -58,7 +58,8 @@ module.exports = {
     new CssToJSON({
       pattern: './src/**/*.css'
     }),
-    new ESLintWebpackPlugin()
+    new ESLintWebpackPlugin(),
+    new webpack.SourceMapDevToolPlugin({ filename: '[file].map[query]' })
   ],
   performance: {
     hints: false
@@ -67,5 +68,6 @@ module.exports = {
     static: helpers.root('.'),
     historyApiFallback: true,
     port: 8080
-  }
+  },
+  devtool: false
 }
