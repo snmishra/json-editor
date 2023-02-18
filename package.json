@@ -9,6 +9,9 @@
     "email": "jeremy@jeremydorn.com",
     "url": "http://jeremydorn.com"
   },
+  "publishConfig": {
+    "@snmishra:registry": "https://npm.pkg.github.com"
+  },  
   "bugs": {
     "url": "https://github.com/json-editor/json-editor/issues"
   },
