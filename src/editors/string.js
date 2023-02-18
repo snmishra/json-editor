@@ -359,7 +359,7 @@ export class StringEditor extends AbstractEditor {
   }
 
   showValidationErrors (errors) {
-    if (this.jsoneditor.options.show_errors === 'always') { } else if (!this.is_dirty && this.previous_error_setting === this.jsoneditor.options.show_errors) return
+    if (this.jsoneditor.options.show_errors === 'always') { /* empty */ } else if (!this.is_dirty && this.previous_error_setting === this.jsoneditor.options.show_errors) return
 
     this.previous_error_setting = this.jsoneditor.options.show_errors
 

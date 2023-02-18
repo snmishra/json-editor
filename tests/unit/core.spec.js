@@ -240,9 +240,9 @@ describe('JSONEditor', function () {
             array: []
           })
 
-          fillField('root[integer]', 3)
-          fillField('root[number]', 4)
-          fillField('root[string]', 'foo')
+          fillField(element, 'root[integer]', 3)
+          fillField(element, 'root[number]', 4)
+          fillField(element, 'root[string]', 'foo')
 
           expect(editor.getValue()).toEqual({
             boolean: undefined,
@@ -254,9 +254,9 @@ describe('JSONEditor', function () {
             array: []
           })
 
-          fillField('root[integer]', '')
-          fillField('root[number]', '')
-          fillField('root[string]', '')
+          fillField(element, 'root[integer]', '')
+          fillField(element, 'root[number]', '')
+          fillField(element, 'root[string]', '')
 
           expect(editor.getValue()).toEqual({
             boolean: undefined,
@@ -314,7 +314,7 @@ describe('JSONEditor', function () {
   })
 })
 
-function fillField (fieldName, value) {
-  document.querySelector(`[name="${fieldName}"]`).value = value
-  document.querySelector(`[name="${fieldName}"]`).dispatchEvent(new Event('change'))
+function fillField (element, fieldName, value) {
+  element.querySelector(`[name="${fieldName}"]`).value = value
+  element.querySelector(`[name="${fieldName}"]`).dispatchEvent(new Event('change'))
 }

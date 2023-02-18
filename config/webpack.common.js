@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const helpers = require('./helpers')
 const CssToJSON = require('../build/CssToJson')
+const ESLintWebpackPlugin = require('eslint-webpack-plugin')
 
 const bannerText = `/**
 * @name JSON Editor
@@ -22,12 +23,6 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader'
-      },
       {
         test: /\.js|\.css.js$/,
         exclude: /node_modules/,
@@ -62,7 +57,8 @@ module.exports = {
     ),
     new CssToJSON({
       pattern: './src/**/*.css'
-    })
+    }),
+    new ESLintWebpackPlugin()
   ],
   performance: {
     hints: false

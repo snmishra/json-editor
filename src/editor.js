@@ -152,11 +152,8 @@ export class AbstractEditor {
     if (!editor || !editor.dependenciesFulfilled) {
       this.dependenciesFulfilled = false
     } else if (Array.isArray(choices)) {
-      this.dependenciesFulfilled = choices.some(choice => {
-        if (JSON.stringify(value) === JSON.stringify(choice)) {
-          return true
-        }
-      })
+      this.dependenciesFulfilled = choices.some(choice =>
+        JSON.stringify(value) === JSON.stringify(choice))
     } else if (typeof choices === 'object') {
       if (typeof value !== 'object') {
         this.dependenciesFulfilled = choices === value
@@ -169,6 +166,7 @@ export class AbstractEditor {
             this.dependenciesFulfilled = false
             return true
           }
+          return false
         })
       }
     } else if (typeof choices === 'string' || typeof choices === 'number') {

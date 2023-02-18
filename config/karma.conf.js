@@ -1,4 +1,5 @@
 const CssToJSON = require('../build/CssToJson')
+process.env.CHROME_BIN = require('puppeteer').executablePath()
 
 /* eslint-disable no-undef */
 // Karma configuration

@@ -1,10 +1,10 @@
-const webpackMerge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const commonConfig = require('./webpack.common.js')
 const helpers = require('./helpers')
 
 // See https://webpack.js.org/guides/development/
-module.exports = (env) => webpackMerge(commonConfig, {
+module.exports = (env) => merge(commonConfig, {
   mode: 'development',
   devtool: 'source-map',
   output: {

@@ -383,6 +383,7 @@ function translate (key, variables, schema) {
 
   if (!lang) throw new Error(`Unknown language ${defaults.language}`)
 
+  // eslint-disable-next-line camelcase
   let string = schemaMessages[key] || lang[key] || defaults.languages[default_language][key] || key
 
   if (variables) {
@@ -421,7 +422,9 @@ export const defaults = {
   editors,
   languages,
   resolvers,
+  // eslint-disable-next-line camelcase
   custom_validators,
+  // eslint-disable-next-line camelcase
   default_language,
   language,
   translate,

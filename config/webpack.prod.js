@@ -1,11 +1,11 @@
 const webpack = require('webpack')
-const webpackMerge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const RemoveStrictPlugin = require('remove-strict-webpack-plugin')
 const commonConfig = require('./webpack.common.js')
 const helpers = require('./helpers')
 
 module.exports = () => {
-  return webpackMerge(commonConfig, {
+  return merge(commonConfig, {
     mode: 'production',
     output: {
       path: helpers.root('dist'),

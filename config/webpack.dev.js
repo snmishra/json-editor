@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
-const webpackMerge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const commonConfig = require('./webpack.common.js')
 const helpers = require('./helpers')
 
-module.exports = webpackMerge(commonConfig, {
+module.exports = merge(commonConfig, {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
   output: {
