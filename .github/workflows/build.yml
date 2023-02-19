@@ -11,8 +11,14 @@ jobs:
       - uses: actions/checkout@v3
       - name: Node version
         run: node -v
+      - name: Cache NPM packages
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: |
+            ~/.npm
       - name: Install
-        run: npm install
+        run: npm ci
       - name: Test
         run: npm run test-headless
 
@@ -45,8 +51,12 @@ jobs:
       #- name: Install
       #  run: |
       #    npm install
-      - name: Install
-        run: docker-compose run -T --rm node npm install
+      - name: Cache NPM packages
+        uses: actions/cache@v3
+        with:
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: |
+            ~/.npm      
       - name: Start
         run: docker-compose up -d ${SELENIUM_BROWSER}
       - name: Build
