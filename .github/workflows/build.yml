@@ -7,10 +7,6 @@ jobs:
   unit-test:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: tests
     steps:
       - uses: actions/checkout@v3
       - name: Node version
@@ -29,24 +25,6 @@ jobs:
   end-to-end-test:
 
     runs-on: ubuntu-latest
-    needs: [unit-test]
-    services:
-      chrome:
-        image: selenium/standalone-chrome:3.141.59-20200525
-        ports:
-          - 4444:4444
-          - 9060:5900
-        options: --shm-size=2gb
-        env:
-          VNC_NO_PASSWORD: 1
-      firefox:
-        image: selenium/standalone-firefox:3.141.59-20210929
-        ports:
-          - 4444:4444
-          - 9059:5900
-        options: --shm-size=2gb
-        env:
-          VNC_NO_PASSWORD: 1
     strategy:
       matrix:
         include:
@@ -70,19 +48,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      #- name: Install
+      #  run: |
+      #    npm install
       - name: Cache NPM packages
         uses: actions/cache@v3
         with:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           path: |
             ~/.npm
+      - name: Start
+        run: docker-compose up -d ${SELENIUM_BROWSER}
       - name: Build
-        run: |
-          npm ci
-          npm run ${BUILD_ENV}
+        run: docker-compose run -T --rm node npm run ${BUILD_ENV}
       - name: Test
         run: |
-          codeceptjs -c ./tests/codeceptjs/codecept.json run-multiple basic:${SELENIUM_BROWSER} --invert --grep '@optional'
+          docker-compose exec -T node codeceptjs -c /repo/tests/codeceptjs/codecept.json run-multiple basic:${SELENIUM_BROWSER} --invert --grep  '@optional'
           pwd
           ls -la codeceptjs/output
       - name: Test Artifacts
@@ -94,5 +75,5 @@ jobs:
           retention-days: 30
       - name: Test (optional)
         continue-on-error: true
-        run: codeceptjs -c ./tests/codeceptjs/codecept.json run-multiple basic:${SELENIUM_BROWSER} --grep '@optional'
+        run: docker-compose exec -T node codeceptjs -c /repo/tests/codeceptjs/codecept.json run-multiple basic:${SELENIUM_BROWSER} --grep '@optional'
 
