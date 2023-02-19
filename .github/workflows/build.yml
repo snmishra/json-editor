@@ -57,6 +57,8 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           path: |
             ~/.npm
+      - name: Build
+        run: docker-compose up node
       - name: Start
         run: docker-compose up -d ${SELENIUM_BROWSER}
       - name: Build
