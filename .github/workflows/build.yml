@@ -63,7 +63,7 @@ jobs:
         working-directory: /repo/tests
     container:
       image: ghcr.io/${{ github.repository_owner }}/jsoneditor:${{ github.sha }}
-      options: --user root
+      options: --user node
     services:
       chrome:
         image: selenium/standalone-chrome:4.8.0
@@ -79,7 +79,7 @@ jobs:
       #  run: |
       #    npm install
       - name: Build
-        run: npm run ${BUILD_ENV}
+        run: npm --global config set user node && npm run ${BUILD_ENV}
       - name: Test
         run: |
           codeceptjs -c /repo/tests/codeceptjs/codecept.json run-multiple basic:chrome --invert --grep  '@optional'
