@@ -62,7 +62,7 @@ jobs:
         shell: bash
         working-directory: /repo/tests
     container:
-      image: docker://ghcr.io/${{ github.repository_owner }}/jsoneditor:${{ github.sha }}
+      image: ghcr.io/${{ github.repository_owner }}/jsoneditor:${{ github.sha }}
     services:
       chrome:
         image: selenium/standalone-chrome:4.8.0
