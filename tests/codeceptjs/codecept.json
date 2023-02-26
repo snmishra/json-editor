@@ -33,7 +33,7 @@
         {
           "url": "http://localhost:9001/tests/pages/",
           "browser": "chrome",
-          "host": "chrome",
+          "host": "localhost",
           "restart": false
         }
       ]
