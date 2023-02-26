@@ -75,11 +75,6 @@ jobs:
     env:
       BUILD_ENV: ${{ matrix.build-env }}
     steps:
-      #- name: Install
-      #  run: |
-      #    npm install
-      - name: Build
-        run: npm --global config set user node && npm run ${BUILD_ENV}
       - name: Test
         run: |
           codeceptjs -c /repo/tests/codeceptjs/codecept.json run-multiple basic:chrome --invert --grep  '@optional'
