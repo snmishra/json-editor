@@ -10,4 +10,4 @@ COPY . .
 # Avoids `chmod u+x $DIR` and other workarounds.
 RUN npm --global config set user "${USER}" \
   && npm --global --quiet --no-progress install \
-  && npm ci && npm build.prod && npm build.nonmin.travis
+  && npm ci && npm run build.prod && npm run build.nonmin.travis
