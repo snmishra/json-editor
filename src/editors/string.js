@@ -44,6 +44,9 @@ export class StringEditor extends AbstractEditor {
     const changed = fromTemplate || this.getValue() !== value
 
     this.refreshValue()
+    if (this.imask_instance != null) {
+      this.imask_instance.updateValue()
+    }
 
     if (initial) this.is_dirty = false
     else if (this.jsoneditor.options.show_errors === 'change') this.is_dirty = true
@@ -363,6 +366,7 @@ export class StringEditor extends AbstractEditor {
   }
 
   showValidationErrors (errors) {
+    // eslint-disable-next-line no-empty
     if (this.jsoneditor.options.show_errors === 'always') { } else if (!this.is_dirty && this.previous_error_setting === this.jsoneditor.options.show_errors) return
 
     this.previous_error_setting = this.jsoneditor.options.show_errors
