@@ -3,7 +3,8 @@
   "timeout": 30,
   "output": "./output",
   "plugins": {
-    "pauseOnFail": {}
+    "pauseOnFail": {},
+    "tryTo": {"enabled": true}
   },
   "helpers": {
     "WebDriver": {

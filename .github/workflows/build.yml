@@ -83,7 +83,7 @@ jobs:
 
       - name: Test
         run: |
-          npx codeceptjs run --invert --grep '@optional'
+          npx codeceptjs -c codeceptjs/codecept.json run --invert --grep '@optional'
           pwd
           ls -la codeceptjs/output
           

@@ -1,4 +1,4 @@
-/** @type {import('codeceptjs/index').MainConfig} */
+/** @type {import('codeceptjs').MainConfig} */
 exports.config = {
   tests: './tests/codeceptjs/**/*_test.js',
   timeout: 30,
