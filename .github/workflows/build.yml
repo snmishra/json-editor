@@ -76,12 +76,17 @@ jobs:
     env:
       BUILD_ENV: ${{ matrix.build-env }}
     steps:
-      - name: Test
+      - name: Server
         run: |
           npm run serve-test &
+          sleep 10
+
+      - name: Test
+        run: |
           npx codeceptjs -c /repo/tests/codeceptjs/codecept.json run-multiple basic:chrome --invert --grep  '@optional'
           pwd
           ls -la codeceptjs/output
+          
       - name: Test Artifacts
         if: always()
         uses: actions/upload-artifact@v3
