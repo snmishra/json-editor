@@ -291,6 +291,7 @@ export class StringEditor extends AbstractEditor {
 
   getValue () {
     const hasValueSet = !!(this.input && this.input.value)
+
     if (this.shouldBeUnset() && !hasValueSet) {
       return undefined
     }
@@ -319,6 +320,9 @@ export class StringEditor extends AbstractEditor {
   }
 
   refreshValue () {
+    if (!this.input) {
+      return
+    }
     this.value = this.input.value
     if (typeof this.value !== 'string' && !this.shouldBeUnset()) this.value = ''
     this.serialized = this.value

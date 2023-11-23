@@ -5,6 +5,16 @@ const { DEFAULT_WAIT_TIME } = require('./test-config')
 
 Feature('core')
 
+Scenario('should listen to @load-events', async ({ I }) => {
+  I.amOnPage('load-events.html')
+  I.waitForElement('.je-ready')
+  I.waitForText('/tests/pages/../fixtures/basic_person.json')
+  I.waitForText('{"title":"Person","type":"object","id":"person","properties":{"name":{"type":"string","description":"First and Last name","minLength":4},"age":{"type":"integer","default":21,"minimum":18,"maximum":99},"gender":{"type":"string","enum":["male","female","other"]}}}')
+  I.waitForText('/tests/pages/../fixtures/person.json')
+  I.waitForText('{"$ref":"../fixtures/basic_person.json","properties":{"location":{"type":"object","title":"Location","properties":{"city":{"type":"string"},"state":{"type":"string"},"citystate":{"type":"string","description":"This is generated automatically from the previous two fields","template":"{{city}}, {{state}}","watch":{"city":"person.location.city","state":"person.location.state"}}}},"pets":{"type":"array","format":"table","title":"Pets","uniqueItems":true,"items":{"type":"object","properties":{"type":{"type":"string","enum":["cat","dog","bird","reptile","other"],"default":"dog"},"name":{"type":"string"},"fixed":{"type":"boolean","title":"spayed / neutered"}}}}}}')
+  I.waitForText('All schemas loaded')
+})
+
 Scenario('should set per-editor options @per-editor-options', async ({ I }) => {
   I.amOnPage('per-editor-options.html')
   I.waitForElement('.je-ready')
@@ -79,18 +89,18 @@ Scenario('should set and get individual values', async ({ I }) => {
   I.waitForValue('.value', '"john kaminski"')
 })
 
-Scenario('should watch a specific field for changes', async ({ I }) => {
+Scenario('should watch a specific field for changes @core @change', async ({ I }) => {
   I.amOnPage('core.html')
   I.dontSeeElement('.name-changed')
   I.click('.set-individual-value')
-  I.seeElement('.name-changed')
+  I.waitForElement('.name-changed')
 })
 
-Scenario('should watch form for changes', async ({ I }) => {
+Scenario('should watch form for changes @core @change', async ({ I }) => {
   I.amOnPage('core.html')
   I.dontSeeElement('.form-changed')
   I.click('.set-value')
-  I.seeElement('.form-changed')
+  I.waitForElement('.form-changed')
 })
 
 Scenario('should change the form if form_name_root option is set @core', async ({ I }) => {
@@ -165,6 +175,14 @@ Scenario('should validate against anyOf schemas and display single anyOf and edi
   I.wait(3)
   I.dontSeeElement('div:has(+ .alert-danger)')
   I.dontSeeElement('[data-schemapath="root.age"] .invalid-feedback')
+})
+
+Scenario('should keep only existent values @core @anyof @keep_only_existing_values', async ({ I }) => {
+  I.amOnPage('keep_only_existing_values.html')
+  I.waitForElement('.je-ready')
+  I.waitForValue('#value', '{"name":"Afred","surname":"hitchcock","zip":"12345"}')
+  I.selectOption('.je-switcher', 'object 2')
+  I.waitForValue('#value', '{"name":"Afred","surname":"hitchcock","other_zip":""}')
 })
 
 Scenario('should display anyOf and oneOf error messages in the correct places @848', async ({ I }) => {

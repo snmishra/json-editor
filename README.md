@@ -241,6 +241,11 @@ Here are all the available options:
     <td><code>true</code></td>
   </tr>
   <tr>
+      <td>keep_only_existing_values</td>
+      <td>If <code>true</code>, copy only existing properties over when switching.</td>
+      <td><code>false</code></td>
+    </tr>
+  <tr>
     <td>schema</td>
     <td>A valid JSON Schema to use for the editor.  Version 3 and Version 4 of the draft specification are supported.</td>
     <td><code>{}</code></td>
@@ -308,6 +313,16 @@ Here are all the available options:
   <tr>
     <td>use_name_attributes</td>
     <td>If <code>true</code>, control inputs <code>name</code> attributes will be set.</td>
+    <td><code>true</code></td>
+  </tr>
+  <tr>
+    <td>button_state_mode</td>
+    <td>If <code>1</code>, inactive buttons are hidden. If <code>2</code>, inactive buttons are disabled.</td>
+    <td><code>1</code></td>
+  </tr>
+  <tr>
+    <td>case_sensitive_property_search</td>
+    <td>This property controls whether property searches in an object editor are case-sensitive</td>
     <td><code>true</code></td>
   </tr>
   </tbody>
@@ -535,7 +550,7 @@ Some of The [hyper-schema][hyper] specification is supported as well.
 
 [core]: http://json-schema.org/latest/json-schema-core.html
 [validation]: http://json-schema.org/latest/json-schema-validation.html
-[hyper]: http://json-schema.org/latest/json-schema-hypermedia.html
+[hyper]: https://json-schema.org/draft-07/json-hyper-schema-release-notes
 
 ### $ref and definitions
 
@@ -630,6 +645,52 @@ Show a video preview (using HTML5 video)
 
 The `href` property is a template that gets re-evaluated every time the value changes.
 The variable `self` is always available.  Look at the __Dependencies__ section below for how to include other fields or use a custom template engine.
+
+### if-then-else
+The if-then-else keywords are used to express conditional validation logic based on the evaluation of a specified condition. The if keyword defines a condition, and depending on whether it evaluates to true or false, the schema specified under either the then or else keywords will be applied.
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "street_address": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string",
+      "default": "United States of America",
+      "enum": [
+        "United States of America",
+        "Canada"
+      ]
+    },
+    "postal_code": {
+      "type": "string"
+    }
+  },
+  "if": {
+    "properties": {
+      "country": {
+        "const": "United States of America"
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "postal_code": {
+        "pattern": "[0-9]{5}(-[0-9]{4})?"
+      }
+    }
+  },
+  "else": {
+    "properties": {
+      "postal_code": {
+        "pattern": "[A-Z][0-9][A-Z] [0-9][A-Z][0-9]"
+      }
+    }
+  }
+}
+```
 
 ### Property Ordering
 
@@ -843,8 +904,10 @@ __Ace Editor__ is a syntax highlighting source code editor. You can use it by se
 *  pgsql
 *  php
 *  python
+*  prql
 *  r
 *  ruby
+*  rust
 *  sass
 *  scala
 *  scss
@@ -852,10 +915,12 @@ __Ace Editor__ is a syntax highlighting source code editor. You can use it by se
 *  sql
 *  stylus
 *  svg
+*  typescript
 *  twig
 *  vbscript
 *  xml
 *  yaml
+*  zig
 
 ```json
 {
@@ -1031,6 +1096,22 @@ editor.on('deleteRow', deletedValue => {
 editor.on('deleteAllRows', deletedValues => {
   console.log('deleteAllRows', deletedValues)
 });
+```
+
+#### Schema loader events
+
+When schemas are loaded via a request, the `schemaLoaded` event is triggered individually for each schema after its loading.
+Once the loading of all schemas is completed, the `allSchemasLoaded` event is triggered.
+
+```javascript
+editor.on('schemaLoaded', (payload) => {
+  console.log('schemasLoaded', payload.schemaUrl)
+  console.log('schemasLoaded', payload.schema)
+})
+
+editor.on('allSchemasLoaded', () => {
+  console.log('allSchemasLoaded')
+})
 ```
 
 
@@ -1246,6 +1327,51 @@ Here's an example schema:
     }
   }
 }
+```
+
+Keys can also be an absolute path like `root.property.nested_property` 
+ 
+```json
+{
+    "title": "Person",
+    "type": "object",
+    "required": [
+      "gender"
+    ],
+    "properties": {
+      "gender": {
+        "title": "Gender",
+        "type": "string",
+        "enum": [
+          "female",
+          "male"
+        ]
+      },
+      "age": {
+        "type": "object",
+        "properties": {
+          "maleSpecificAge": {
+            "type": "string",
+            "title": "Male specific age question?",
+            "options": {
+              "dependencies": {
+                "root.gender": "male"
+              }
+            }
+          },
+          "femaleSpecificAge": {
+            "type": "string",
+            "title": "Female specific age question?",
+            "options": {
+              "dependencies": {
+                "root.gender": "female"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 ```
 
 The `dependencies` keyword from the JSON Schema specification is not nearly flexible enough to handle most use cases,

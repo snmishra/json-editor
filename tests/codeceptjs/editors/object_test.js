@@ -5,6 +5,26 @@ const { DEFAULT_WAIT_TIME } = require('../test-config')
 
 Feature('object')
 
+Scenario('@case-sensitive-property-search', async ({ I }) => {
+  I.amOnPage('object-case-sensitive-property-search-true.html')
+  I.click('.json-editor-btn-edit_properties')
+  I.fillField('.property-selector-input', 'aaa')
+  I.see('aaa', '.form-check label')
+  I.dontSee('AAA', '.form-check label')
+  I.fillField('.property-selector-input', 'AAA')
+  I.see('AAA', '.form-check label')
+  I.dontSee('aaa', '.form-check label')
+
+  I.amOnPage('object-case-sensitive-property-search-false.html')
+  I.click('.json-editor-btn-edit_properties')
+  I.fillField('.property-selector-input', 'aaa')
+  I.see('aaa', '.form-check label')
+  I.see('AAA', '.form-check label')
+  I.fillField('.property-selector-input', 'AAA')
+  I.see('AAA', '.form-check label')
+  I.see('aaa', '.form-check label')
+})
+
 Scenario('should respect property orders', async ({ I }) => {
   I.amOnPage('object.html')
   assert.strictEqual(await I.grabAttributeFrom('[data-schemapath^="root"] .row:nth-of-type(1) [data-schemapath^="root."]', 'data-schemapath'), 'root.age')
@@ -242,6 +262,32 @@ Scenario('should hide properties with unfulfilled dependencies @dependencies', (
   I.seeElement('[data-schemapath="root.enable_option"] input')
   I.seeElement('[data-schemapath="root.make_new"] input')
   I.dontSeeElement('[data-schemapath="root.existing_name"]')
+})
+
+Scenario('should fulfill dependencies whit fully qualified paths @dependencies', ({ I }) => {
+  I.amOnPage('option-dependencies.html')
+  I.waitForText('Female specific question?')
+  I.waitForText('Female specific age question?')
+  I.dontSee('Male specific question?')
+  I.dontSee('Male specific age question?')
+  I.dontSee('What is your preferred gender?')
+  I.dontSee('Other specific age question?')
+
+  I.selectOption('[id="root[gender]"]', 'male')
+  I.dontSee('Female specific question?')
+  I.dontSee('Female specific age question?')
+  I.waitForText('Male specific question?')
+  I.waitForText('Male specific age question?')
+  I.dontSee('What is your preferred gender?')
+  I.dontSee('Other specific age question?')
+
+  I.selectOption('[id="root[gender]"]', 'other')
+  I.dontSee('Female specific question?')
+  I.dontSee('Female specific age question?')
+  I.dontSee('Male specific question?')
+  I.dontSee('Male specific age question?')
+  I.waitForText('What is your preferred gender?')
+  I.waitForText('Other specific age question?')
 })
 
 Scenario('should respect multiple dependency values @dependencies', ({ I }) => {

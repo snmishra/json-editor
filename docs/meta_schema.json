@@ -122,8 +122,10 @@
             "pgsql",
             "php",
             "python",
+            "prql",
             "r",
             "ruby",
+            "rust",
             "sass",
             "scala",
             "scss",
@@ -131,10 +133,12 @@
             "sql",
             "stylus",
             "svg",
+            "typescript",
             "twig",
             "vbscript",
             "xml",
-            "yaml"
+            "yaml",
+            "zig"
           ]
         },
         "minLength": {
@@ -475,6 +479,17 @@
           "uniqueItems": true,
           "propertyOrder": 50,
           "format": "table"
+        },
+        "const": {
+          "type": [
+            "object",
+            "array",
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
         },
         "enumSource": {
           "oneOf": [

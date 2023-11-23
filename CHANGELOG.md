@@ -1,9 +1,55 @@
 ### Unreleased
 
+### 2.12.0
+
+- Fixed issue #1422: use_default_values: false deletes valid values while true sets invalid default values
+- Added feature: load-events
+- Fixed issue #1410: Schema for "additionalProperties" does not override "no_additional_properties: true"
+- Added feature: table-responsive
+- Fixed readme-broken-link
+- Updated integrity checks in example pages
+
+### 2.11.0
+
+- Fixed issue #746 and #645: Selectize with create = true should add items
+- Added case_sensitive_property_search option
+- Added specialized editors for ace (PRQL, Rust, TypeScript, Zig)
+- Fixed bug: items schemas not being expanded on time when using $ref
+- Added tests for schema loader
+- Added docs for if-then-else
+- Updated playground ace editor config
+- Added button_state_mode options
+- Added support for case-insensitive properties search
+- Fixed issue #746 and #645 Selectize with create = true should add Items
+- Added support for case insensitive properties search
+- Added support for dependentRequired constrains
+- Fixed issue #1367: Signature editor not returning base64 data
+- Fixed issue #1237: more coherent ui for Base64 editor
+- Fixed issue #1364: getValue() with dependencies
+- Added new languages: PRQL, Rust, TypeScript and Zig.
+
+### 2.10.1
+
+- Added keep_only_existing_values option
+- Fixed if-then-else edge case bug with disabled fields
+
+### 2.10.0
+
+- Fixed schema loader bug and added test for relative issues 
+- Using multiple for schemas with if-then-else
 - Added support for shell script highlighting
 - Added support for contains, minContains and maxContains constrains
 - Added support for if-then-else constrains
 - Added support for dependentSchemas constrains
+- Added support for absolute paths in dependencies
+- Added support for bootstrap icons
+- Added custom editor example page
+- Added bootstrap 5 theme option in example page
+- Fixed property checkboxes display
+- Updated array delete message
+- Refactored tests with codeceptjs native waitForValue()
+- Fixed bootstrap 3 import warnings
+- Updated autocomplete example with library css
 
 ### 2.9.1
 
