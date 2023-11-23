@@ -7,7 +7,7 @@
   },
   "helpers": {
     "WebDriver": {
-      "url": "http://localhost:9001/tests/pages/",
+      "url": "http://localhost:9100/tests/pages/",
       "browser": "firefox",
       "restart": false,
       "host": "firefox",
@@ -31,8 +31,8 @@
       "browsers": [
         "firefox",
         {
-          "url": "http://localhost:9001/tests/pages/",
-          "browser": "chrome",
+          "url": "http://localhost:9100/tests/pages/",
+          "browser": "firefox",
           "host": "localhost",
           "restart": false
         }

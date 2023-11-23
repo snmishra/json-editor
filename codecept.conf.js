@@ -1,3 +1,4 @@
+/** @type {import('codeceptjs/index').MainConfig} */
 exports.config = {
   tests: './tests/codeceptjs/**/*_test.js',
   timeout: 10000,
@@ -5,15 +6,24 @@ exports.config = {
   helpers: {
     Puppeteer: {
       browser: 'chrome',
-      url: 'localhost:9001/tests/pages/',
+      url: 'http://localhost:9100/tests/pages/',
       show: true,
       disableScreenshots: false,
       waitForNavigation: 'networkidle0',
-      waitForAction: 200,
+      waitForAction: 500,
       restart: false,
       chrome: {
         args: ['--ignore-certificate-errors', '--no-sandbox']
       }
+    },
+    Playwright: {
+      browser: 'chromium',
+      url: 'http://localhost:9100/tests/pages/',
+      show: true,
+      disableScreenshots: false,
+      waitForNavigation: 'networkidle0',
+      waitForAction: 500,
+      restart: false,
     },
     customHelpers: {
       require: './config/codeceptjs_helpers.js'
@@ -31,5 +41,12 @@ exports.config = {
       reportTitle: 'E2E Test Reports'
     }
   },
-  name: 'codeceptjs-json-editor'
+  name: 'codeceptjs-json-editor',
+  plugins: {
+    pauseOnFail: {},
+    tryTo: {
+      enabled: true
+    },
+  }
+
 }

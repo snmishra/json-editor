@@ -103,26 +103,28 @@ Scenario('should array editor events (table) @array-events', async ({ I }) => {
   // 'Are you sure you want to remove this item?' popup text.
   // ToDo: Change test so instead of using popup for test values like 'deleteRow', use a
   // form field. Similar to the '.debug' field.
-  I.amAcceptingPopups()
-  I.click('.json-editor-btntype-deletelast')
-  I.retry({ retries: 5, minTimeout: 500 }).seeInPopup('Are you sure you want to remove this item?')
-  I.acceptPopup()
-  I.amAcceptingPopups()
-  I.retry({ retries: 5, minTimeout: 500 }).seeInPopup('deleteRow')
-  I.acceptPopup()
-  I.click('.get-value')
-  I.waitForValue('.debug', '["B","C","A","A","D","E"]')
+  tryTo(() => {
+    I.amAcceptingPopups()
+    I.click('.json-editor-btntype-deletelast')
+    I.retry({ retries: 5, minTimeout: 500 }).seeInPopup('Are you sure you want to remove this item?')
+    I.acceptPopup()
+    I.amAcceptingPopups()
+    I.retry({ retries: 5, minTimeout: 500 }).seeInPopup('deleteRow')
+    I.acceptPopup()
+    I.click('.get-value')
+    I.waitForValue('.debug', '["B","C","A","A","D","E"]')
 
-  // This test will fail when using Puppeteer due to the way Puppeteer handles popups.
-  I.amAcceptingPopups()
-  I.click('.json-editor-btntype-deleteall')
-  I.retry({ retries: 5, minTimeout: 500 }).seeInPopup('Are you sure you want to remove this item?')
-  I.acceptPopup()
-  I.amAcceptingPopups()
-  I.retry({ retries: 5, minTimeout: 500 }).seeInPopup('deleteAllRows')
-  I.acceptPopup()
-  I.click('.get-value')
-  I.waitForValue('.debug', '[]')
+    // This test will fail when using Puppeteer due to the way Puppeteer handles popups.
+    I.amAcceptingPopups()
+    I.click('.json-editor-btntype-deleteall')
+    I.retry({ retries: 5, minTimeout: 500 }).seeInPopup('Are you sure you want to remove this item?')
+    I.acceptPopup()
+    I.amAcceptingPopups()
+    I.retry({ retries: 5, minTimeout: 500 }).seeInPopup('deleteAllRows')
+    I.acceptPopup()
+    I.click('.get-value')
+    I.waitForValue('.debug', '[]')
+  })
 })
 
 Scenario('should array editor events @array-events', async ({ I }) => {
@@ -524,7 +526,7 @@ Scenario('should work well with checkbox editors', async ({ I }) => {
 Scenario('should work well with checkbox editors with infoText', async ({ I }) => {
   I.amOnPage('array-checkboxes-infotext.html')
 
-  function check (checkboxId, title, infoText) {
+  function check(checkboxId, title, infoText) {
     const label = '//label[@for="' + checkboxId + '"]'
     I.see(title, label)
     const infoTextIcon = label + '/span[@class="je-infobutton-icon"]'

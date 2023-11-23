@@ -2,7 +2,7 @@
 
 Feature('if-then-else')
 
-Scenario('validate agaist allOf of if schemas @if-then-else', async ({ I }) => {
+Scenario('validate agaist allOf of if schemas @if-then-else @allOf', async ({ I }) => {
   I.amOnPage('if-then-else-allOf.html')
   I.waitForElement('.je-ready')
 
@@ -87,7 +87,7 @@ Scenario('validate agaist if-then-else @if-then-else', async ({ I }) => {
   I.selectOption('[name="root[country]"]', 'Canada')
   I.fillField('[name="root[postal_code]"]', 'K1M 1M4')
   I.pressKey('Tab')
-  I.dontSee('.invalid-feedback')
+  I.dontSeeElement('.invalid-feedback')
 })
 
 Scenario('validate agaist if-then @if-then-else', async ({ I }) => {
