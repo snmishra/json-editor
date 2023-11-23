@@ -39,7 +39,7 @@ jobs:
       - uses: docker/build-push-action@v5
         with:
           context: .
-          file: tests/Dockerfile
+          file: Dockerfile
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max

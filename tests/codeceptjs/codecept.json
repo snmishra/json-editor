@@ -4,18 +4,20 @@
   "output": "./output",
   "plugins": {
     "pauseOnFail": {},
-    "tryTo": {"enabled": true}
+    "tryTo": { "enabled": true }
   },
   "helpers": {
-    "WebDriver": {
-      "url": "http://localhost:9100/tests/pages/",
-      "browser": "chrome",
-      "restart": false,
-      "host": "chrome",
-      "smartWait": 10000
-    },
     "customHelpers": {
       "require": "./../../config/codeceptjs_helpers.js"
+    },
+    "Playwright": {
+      "browser": "chromium",
+      "url": "http://localhost:9100/tests/pages/",
+      "show": false,
+      "disableScreenshots": false,
+      "waitForNavigation": "networkidle0",
+      "waitForAction": 500,
+      "restart": false
     }
   },
   "include": {
