@@ -9,9 +9,9 @@
   "helpers": {
     "WebDriver": {
       "url": "http://localhost:9100/tests/pages/",
-      "browser": "firefox",
+      "browser": "chrome",
       "restart": false,
-      "host": "firefox",
+      "host": "chrome",
       "smartWait": 10000
     },
     "customHelpers": {
