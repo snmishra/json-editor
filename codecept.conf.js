@@ -1,7 +1,7 @@
 /** @type {import('codeceptjs/index').MainConfig} */
 exports.config = {
   tests: './tests/codeceptjs/**/*_test.js',
-  timeout: 10000,
+  timeout: 30,
   output: './e2e/output',
   helpers: {
     Puppeteer: {
@@ -50,3 +50,4 @@ exports.config = {
   }
 
 }
+
