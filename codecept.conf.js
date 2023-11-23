@@ -23,7 +23,7 @@ exports.config = {
       disableScreenshots: false,
       waitForNavigation: 'networkidle0',
       waitForAction: 500,
-      restart: false,
+      restart: false
     },
     customHelpers: {
       require: './config/codeceptjs_helpers.js'
@@ -46,8 +46,6 @@ exports.config = {
     pauseOnFail: {},
     tryTo: {
       enabled: true
-    },
+    }
   }
-
 }
-
