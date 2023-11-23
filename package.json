@@ -6,7 +6,7 @@
   "main": "dist/jsoneditor.js",
   "author": {
     "name": "Satya Mishra",
-    "email": "satya.devel@gmail.com",
+    "email": "satya.devel@gmail.com"
   },
   "bugs": {
     "url": "https://github.com/snmishra/json-editor/issues"
